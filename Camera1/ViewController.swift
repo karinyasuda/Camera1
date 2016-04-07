@@ -12,6 +12,9 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     //撮った写真を表示させるため
     @IBOutlet var cameraimage : UIImageView!
+    @IBOutlet var savebutton : UIButton!
+    @IBOutlet var selectbutton : UIButton!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,15 +44,52 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     
     
+    @IBAction func selectPhoto(){
+        //フォトライブラリにアクセスが可能かを調べる
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary){
+            
+            let imagepicker:UIImagePickerController = UIImagePickerController()
+            imagepicker.delegate = self
+            //カメラへのアクセス
+            imagepicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+            self.presentViewController(imagepicker, animated: true, completion: nil)
+            
+        }
+            //難しければ、"error"とログを表示
+        else{
+            print("error")
+        }
+        
+    }
+    
+    //imageviewに表示されているものをカメラロールに保存
+    @IBAction func save (){
+        var imageView:UIImage!
+        imageView = cameraimage.image
+        
+        if imageView != nil{
+            UIImageWriteToSavedPhotosAlbum(imageView, self, nil, nil)
+        }
+        
+        
+        
+    }
+    
+
+    
+    
+    
+    //撮影終了時に呼び出される
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if info [UIImagePickerControllerOriginalImage] != nil {
             
             cameraimage.image = (info[UIImagePickerControllerOriginalImage]  as? UIImage!)!
         }
+        //閉じる処理？
         dismissViewControllerAnimated(true, completion: nil)
         
     }
-    
+
     
     
     
