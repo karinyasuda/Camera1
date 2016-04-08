@@ -43,7 +43,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     }
     
     
-    
+    //カメラロールから写真をエラヴ
     @IBAction func selectPhoto(){
         //フォトライブラリにアクセスが可能かを調べる
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.PhotoLibrary){
@@ -70,13 +70,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         if imageView != nil{
             UIImageWriteToSavedPhotosAlbum(imageView, self, nil, nil)
         }
-        
-        
-        
     }
-    
-
-    
     
     
     //撮影終了時に呼び出される
@@ -89,6 +83,10 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         dismissViewControllerAnimated(true, completion: nil)
         
     }
+    
+    
+    
+    
 
     
     
